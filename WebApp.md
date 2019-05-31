@@ -1,6 +1,6 @@
 ## Purpose
 
-This section provides the steps to install and configue the application software on the VSIs created for the VPC scenario described in [*Basic 3-Tier Web App (with LB)*](https://github.ibm.com/customer-success/ibmcloud/tree/master/VPC_Phase1/VPC_Scenarios/vpc1).
+This section provides the steps to install and configue the application software on the VSIs created for the VPC scenario described in [*Basic 3-Tier Web App (with LB)*](README.md).
 
 For this use case, we will install the open source `WordPress` web site creation tool using `MySQL` database and the `HyperDB` plugin.
 
@@ -10,13 +10,13 @@ For this use case, we will install the open source `WordPress` web site creation
 
 ## Prerequisites
 
-1. VPC environment created previously and ready to deploy the applications. 
-2. Each VSI can be accessed from the public internet using an SSH public key. (Note that public access to each VSI has been done as a temporary measure to install the software.)
+1. VPC environment created previously and ready to deploy the applications.
+2. Each VSI can be accessed from the public internet using an SSH public key. Note that public access to each VSI has been done as a temporary measure to install the software.
 3. Please refer to the WordPress minimum [requirements](https://wordpress.org/about/requirements/) documentation.
-4. Access to the Secure Shell (SSH) Command. ([SSH (Secure Shell)](https://www.ssh.com/ssh/)).
+4. Access to the [Secure Shell (SSH)](https://www.ssh.com/ssh/) Command.
 5. Basic understanding of installation of packages on Linux and SQL database commands.
 
-## Activities executed to setup the Applicaton layer on the VPC environment
+## Activities executed to setup the Application layer on the VPC environment
 
 1. Install and test MySQL on `MySQL1` and `MySQL2`.
 2. Install and test PHP and Nginx on `AppServ1` and `AppServ2`.
@@ -42,7 +42,7 @@ Bring the environment up to date. Refer to [Using apt-get Commands In Linux](htt
 apt-get update
 apt-get upgrade
 ```
-### Install MySQL Pakage
+### Install MySQL Package
 
 Next install MySQL. Refer to [MySQL](https://www.mysql.com/) for more information.
 ```
@@ -58,7 +58,7 @@ mysql_secure_installation
 ```
 Responses for this installation:
 
-- Respond `n` when prompted to setup *VALIDATE PASSWORD PLUGIN* and set a new password. 
+- Respond `n` when prompted to setup *VALIDATE PASSWORD PLUGIN* and set a new password.
 - Enter `mysqlpass` as the MySQL password.
 - Respond `y` to remove anonymous users.
 - Respind `n` to disallow root login remotely.
@@ -79,9 +79,9 @@ secure enough. Would you like to setup VALIDATE PASSWORD plugin?
 Press y|Y for Yes, any other key for No: n
 Please set the password for root here.
 
-New password: 
+New password:
 
-Re-enter new password: 
+Re-enter new password:
 By default, a MySQL installation has an anonymous user,
 allowing anyone to log into MySQL without having to have
 a user account created for them. This is intended only for
@@ -229,7 +229,7 @@ Logoff from the VSI using the `exit` command.
 
 Connect to the `MySQL2` server using SSH and the reserved floating IP address.
 ```
-ssh root@169.61.244.62 
+ssh root@169.61.244.62
 ```
 Repeat the MySQL install for `MySQL2` following the steps for `MySQL1`.
 
@@ -268,7 +268,7 @@ Repeat the Nginx install for `AppServ2` following the steps for `AppServ1`.
 
 ### Test the Load Balancer.
 
-Once the installaion of Nginx is complete, the Load Balancer health checks should pass and the application severs should be accessible through the load balancer. Use the public address (hostname) of the Load Balancer to access the Nginx page (you should get the following message: "Welcome to nginx!")
+Once the installation of Nginx is complete, the Load Balancer health checks should pass and the application severs should be accessible through the load balancer. Use the public address (hostname) of the Load Balancer to access the Nginx page (you should get the following message: "Welcome to nginx!")
 
 In our case --> `http://8d3374f1.lb.appdomain.cloud/`
 
@@ -299,7 +299,7 @@ Connected to 10.10.11.6 (10.10.11.6) port 80 (#0)
 
 ## Install PHP - AppServ1
 
-In this activity we will install [PHP-FPM](https://php-fpm.org/) and the [MySQL plugin](https://www.php.net/manual/en/set.mysqlinfo.php). (PHP-FPM is required for Nginx web server). 
+In this activity we will install [PHP-FPM](https://php-fpm.org/) and the [MySQL plugin](https://www.php.net/manual/en/set.mysqlinfo.php). (PHP-FPM is required for Nginx web server).
 
 PHP will start automatically after installation.
 ```
@@ -401,7 +401,7 @@ systemctl stop nginx
 
 __NOTE:__ *************************************************************************************
 
-**NOTE:** STOP `AppServ2` and hold activities until section [Add AppServ2 to the WordPress environment](https://github.ibm.com/customer-success/ibmcloud/blob/master/VPC_Phase1/VPC_Scenarios/vpc1/WebApp.md#add-appserv2-to-the-wordpress-environment)
+**NOTE:** STOP `AppServ2` and hold activities until section [Add AppServ2 to the WordPress environment](https://github.com/ibm-cloud-architecture/tutorial-vpc-3tier-networking/WebApp.md#add-appserv2-to-the-wordpress-environment)
 
 __NOTE:__ *************************************************************************************
 
@@ -506,7 +506,7 @@ Edit Nginx configuration file `/etc/nginx/sites-available/default` and add the f
                 log_not_found off;
                 access_log off;
         }
-       
+
         location ~* \.(js|css|png|jpg|jpeg|gif|ico)$ {
                 expires max;
                 log_not_found off;
@@ -534,7 +534,7 @@ The configuration is now complete. Save the Nginx file and check it for errors u
 sudo nginx -t
 ```
 
-**AppServ2** Skip to [Configure HyperDB](https://github.ibm.com/customer-success/ibmcloud/blob/master/VPC_Phase1/VPC_Scenarios/vpc1/WebApp.md#configure-hyperdb)
+**AppServ2** Skip to [Configure HyperDB](WebApp.md#configure-hyperdb)
 
 **Start the web server and the PHP runtime.**
 ```
@@ -548,7 +548,7 @@ systemctl start nginx
 2. The Load Balancer health checks will fail until the WordPress setup is complete.
 
 Continue WordPress installation as follows:
-- On your Web Browser, access the Wordpress installation using `AppServ1` floating IP `http://169.61.244.83`. 
+- On your Web Browser, access the Wordpress installation using `AppServ1` floating IP `http://169.61.244.83`.
 - This will take you to `http://169.61.244.83/wp-admin/install.php`.
 - Select `Install WordPress` and provide the required fields to complete the installation.
 ```
@@ -646,7 +646,7 @@ Login to MySQL
 ```
 mysql -u root -p
 ```
-We need to grant privileges to the slave. The following command will set the slave's user name and password: 
+We need to grant privileges to the slave. The following command will set the slave's user name and password:
 
    - GRANT REPLICATION SLAVE ON *.* TO `'slave_user'`@'%' IDENTIFIED BY `'password'`;
 
@@ -702,7 +702,7 @@ This is the `position` from which the slave database will start replicating. Rec
 
 **Note:** If you make any new changes in the current SSH window, the database will automatically unlock. For this reason, you should open a new ssh session to MySQL1 and continue with the next steps there.
 
-**On the second SSH window**, 
+**On the second SSH window**,
 
 **Note**: Database dump is not necessary if starting with an empty database (no tables, no data). Skip to unlock the tables.
 
@@ -852,7 +852,7 @@ Result
 ```
 Query OK, 0 rows affected (0.00 sec)
 ```
-Show the the details of the slave replication by typing the following command. (The \G rearranges the text to make it more readable). 
+Show the the details of the slave replication by typing the following command. (The \G rearranges the text to make it more readable).
 
 Confirm replication is active with rows `Slave_IO_Running` and `Slave_SQL_Running` set to `yes`. Also the `Read_Master_Log_Pos` will be set to the current index in the `master` (use SHOW MASTER STATUS; on MySQL1 to see current value).
 ```
@@ -873,33 +873,33 @@ Result
         Relay_Master_Log_File: mysql-bin.000003
              Slave_IO_Running: Yes
             Slave_SQL_Running: Yes
-              Replicate_Do_DB: 
-          Replicate_Ignore_DB: 
-           Replicate_Do_Table: 
-       Replicate_Ignore_Table: 
-      Replicate_Wild_Do_Table: 
-  Replicate_Wild_Ignore_Table: 
+              Replicate_Do_DB:
+          Replicate_Ignore_DB:
+           Replicate_Do_Table:
+       Replicate_Ignore_Table:
+      Replicate_Wild_Do_Table:
+  Replicate_Wild_Ignore_Table:
                    Last_Errno: 0
-                   Last_Error: 
+                   Last_Error:
                  Skip_Counter: 0
           Exec_Master_Log_Pos: 6941
               Relay_Log_Space: 527
               Until_Condition: None
-               Until_Log_File: 
+               Until_Log_File:
                 Until_Log_Pos: 0
            Master_SSL_Allowed: No
-           Master_SSL_CA_File: 
-           Master_SSL_CA_Path: 
-              Master_SSL_Cert: 
-            Master_SSL_Cipher: 
-               Master_SSL_Key: 
+           Master_SSL_CA_File:
+           Master_SSL_CA_Path:
+              Master_SSL_Cert:
+            Master_SSL_Cipher:
+               Master_SSL_Key:
         Seconds_Behind_Master: 0
 Master_SSL_Verify_Server_Cert: No
                 Last_IO_Errno: 0
-                Last_IO_Error: 
+                Last_IO_Error:
                Last_SQL_Errno: 0
-               Last_SQL_Error: 
-  Replicate_Ignore_Server_Ids: 
+               Last_SQL_Error:
+  Replicate_Ignore_Server_Ids:
              Master_Server_Id: 1
                   Master_UUID: c33c0fc3-1f12-11e9-9cd7-061952205e31
              Master_Info_File: /var/lib/mysql/master.info
@@ -907,17 +907,17 @@ Master_SSL_Verify_Server_Cert: No
           SQL_Remaining_Delay: NULL
       Slave_SQL_Running_State: Slave has read all relay log; waiting for more updates
            Master_Retry_Count: 86400
-                  Master_Bind: 
-      Last_IO_Error_Timestamp: 
-     Last_SQL_Error_Timestamp: 
-               Master_SSL_Crl: 
-           Master_SSL_Crlpath: 
-           Retrieved_Gtid_Set: 
-            Executed_Gtid_Set: 
+                  Master_Bind:
+      Last_IO_Error_Timestamp:
+     Last_SQL_Error_Timestamp:
+               Master_SSL_Crl:
+           Master_SSL_Crlpath:
+           Retrieved_Gtid_Set:
+            Executed_Gtid_Set:
                 Auto_Position: 0
-         Replicate_Rewrite_DB: 
-                 Channel_Name: 
-           Master_TLS_Version: 
+         Replicate_Rewrite_DB:
+                 Channel_Name:
+           Master_TLS_Version:
 1 row in set (0.00 sec)
 ```
 
@@ -968,7 +968,7 @@ mysql> select count(*) from wp_comments;
 
 The `HyperDB` plugin replaces the standard `wpdb` class so that WordPress is able to write and read from additional database servers. The drop-in plugin supports database replication, failover, load balancing, and partitioning — all tools for scaling WordPress.
 
-We will use HyperDB to determine where to send updates (the `master` database) and read requests (both `master` and `slave`). 
+We will use HyperDB to determine where to send updates (the `master` database) and read requests (both `master` and `slave`).
 
 ### Install HyperDB Plugin - AppServ1
 
@@ -1087,7 +1087,7 @@ Save your changes.
 
 **Enable `HyperDB`**
 
-Copy the unzipped `HyperDB` plugin to `/var/www/wordpress/wp-content/`. 
+Copy the unzipped `HyperDB` plugin to `/var/www/wordpress/wp-content/`.
 - Installing this file on this directory will enable `HyperDB`.
 - Removing the file will disable `HyperDB`.
 ```
@@ -1139,12 +1139,12 @@ Now we will introduce `AppServ2` into the environment. Some steps in the install
 
 **READ ALL THE INSTRUCTIONS FIRST BEFORE PROCEEDING TO INSTALL**
 
-1. Install and configure WordPress as noted in [Installing WordPress](https://github.ibm.com/customer-success/ibmcloud/blob/master/VPC_Phase1/VPC_Scenarios/vpc1/WebApp.md#installing-wordpress)
+1. Install and configure WordPress as noted in [Installing WordPress](https://github.com/ibm-cloud-architecture/tutorial-vpc-3tier-networking/WebApp.md#installing-wordpress)
 2. During the WordPress installation:
    - Copy the contents of file `/var/www/wordpress/wp-config.php` from `AppServ1` to `AppServ2`.
    - Copy the contents of file `/etc/nginx/sites-available/default` from `AppServ1` to `AppServ2`.
 3. **Do not** test WordPress installaton but continue to `HyperDB` installation.
-4. Install and configre HyperDB as noted in [Configure HyperDB](https://github.ibm.com/customer-success/ibmcloud/blob/master/VPC_Phase1/VPC_Scenarios/vpc1/WebApp.md#configure-hyperdb).
+4. Install and configre HyperDB as noted in [Configure HyperDB](https://github.com/ibm-cloud-architecture/tutorial-vpc-3tier-networking/WebApp.md#configure-hyperdb).
    - Copy the contents of file `/var/www/wordpress/db-config.php` from `AppServ1` to `AppServ2`.
 5. Install WordPress plugin __*Incorrect Datetime Bug Fix*__ in `AppServ2`.
    - Bring down `AppServ1`.
@@ -1161,9 +1161,9 @@ systemctl start nginx
 
 ## Test the Load Balancer.
 
-Once the installaion of WordPress is complete on `AppServ2`, the Load Balancer health checks should pass. Both application severs should now be accessible through the load balancer.
+Once the installation of WordPress is complete on `AppServ2`, the Load Balancer health checks should pass. Both application severs should now be accessible through the load balancer.
 
-**Note**: It may take a couple of minutes for the load balancer health checks to idnetify both servers are up and healthy.
+**Note**: It may take a couple of minutes for the load balancer health checks to identify both servers are up and healthy.
 
 You can validate that the Load Balancer is routing to one of the two servers with either of the next two options:
 
@@ -1177,7 +1177,7 @@ Reload the browser a couple of times with the Load Balancer public address. Ever
 
 ### Stop Server Option
 
-Here you can just shutdwom one of the application servers and validate the Load Balancer routes to the active server.
+Here you can just shutdown one of the application servers and validate the Load Balancer routes to the active server.
 
 For example, validate the Load Balancer is routing to `AppServ2` by stopping `AppServ1`.
 

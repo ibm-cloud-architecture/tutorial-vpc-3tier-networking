@@ -515,7 +515,7 @@ The CLI syntax to be used in this case will include `--network-interface @jsonfi
 ```
  The file contains variables for port speed (1000), subnet ID (subnet2) and security group ID (data_sg). The JSON file requires the actual object ID instead of environment variables $SUBNET2 and $DATA_SG.
  
- **A sample of this file is available [here](https://github.com/ibm-cloud-architecture/tutorial-vpc-3tier-networking/appeth1.json)**. (Replace the ID values with your own).
+ **A sample of this file is available [here](https://github.com/ibm-cloud-architecture/tutorial-vpc-3tier-networking/blob/master/appeth1.json)**. (Replace the ID values with your own).
 
 **Instance = AppServ1**
 ```

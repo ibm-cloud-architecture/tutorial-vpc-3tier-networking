@@ -1,4 +1,4 @@
-# Use GUI, CLI or API to run a basic 3-Tier Web App in an IBM Cloud VPC  
+# Use GUI, CLI or API to run a Web App in VPC network  
 ## Purpose
 
 Build a load balanced [3-tier](https://en.wikipedia.org/wiki/Multitier_architecture) web application that separates the web / application and data tiers by placing them in separate sub-networks.

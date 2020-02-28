@@ -129,14 +129,14 @@ We will use [environment variables](https://stackoverflow.com/questions/3035427/
 
 Since we do not need to keep these permanently, we will store them in file `.vpc_ids` and execute `source .vpc_ids` as new entries are added to the file. This will allow you to restore these if you close your session and/or wish to continue at a later time. Only those IDs needed for this use case will be saved and highlighted in the documentation as follows:
 
-- Environment variable: `RIAS_ENDPOINT=https://us-south.iaas.cloud.ibm.com`
+- Environment variable: `VPC_API_ENDPOINT=https://us-south.iaas.cloud.ibm.com`
 - Environment variable: `API_VERSION=2019-01-01`
 
-To verify that this variable was saved, execute `echo $RIAS_ENDPOINT` and make sure the response is not empty.
+To verify that this variable was saved, execute `echo $VPC_API_ENDPOINT` and make sure the response is not empty.
 
-After setting the `RIAS_ENDPOINT` environment variable, get the list of available zones in a region using the following command.
+After setting the `VPC_API_ENDPOINT` environment variable, get the list of available zones in a region using the following command.
 ```
-curl -X GET "$RIAS_ENDPOINT/v1/regions/us-south/zones?version=$API_VERSION" \
+curl -X GET "$VPC_API_ENDPOINT/v1/regions/us-south/zones?version=$API_VERSION" \
      -H "Authorization: Bearer $iam_token"
 ```
 Result
@@ -231,12 +231,12 @@ After creating each resource, we will keep the ID using __*environment variables
 
 **Note**: If at any point you encounter an error calling an API, first verify the environment variable is correct for the resource you are attempting to update. If an ID is misplaced or was saved with an incorrect value, You can always use a VPC API command to list the details of a resource. For example,
 ```
-curl -X GET "$RIAS_ENDPOINT/v1/instances?version=$API_VERSION" \
+curl -X GET "$VPC_API_ENDPOINT/v1/instances?version=$API_VERSION" \
      -H "Authorization: Bearer $iam_token"
 ```
 will give the list of all the VSIs and their IDs. Then you can use `<object_id>`
 ```
-curl -X GET "$RIAS_ENDPOINT/v1/instances/<object_id>?version=$API_VERSION" \
+curl -X GET "$VPC_API_ENDPOINT/v1/instances/<object_id>?version=$API_VERSION" \
      -H "Authorization: Bearer $iam_token"
 ```
 to get the details of the specific VSI.
@@ -251,7 +251,7 @@ Syntax: [Creates a key](https://cloud.ibm.com/apidocs/vpc-on-classic#create-a-ke
 
 Create an SSH key named `vpc-key`
 ```
-curl -X POST "$RIAS_ENDPOINT/v1/keys?version=$API_VERSION" \
+curl -X POST "$VPC_API_ENDPOINT/v1/keys?version=$API_VERSION" \
      -H "Authorization: Bearer $iam_token" \
      -d "{ \"name\" : \"vpc-key\", \
            \"public_key\" : \"$SSH_KEY\", \
@@ -281,7 +281,7 @@ Syntax: [Creates a VPC](https://cloud.ibm.com/apidocs/vpc-on-classic#create-a-vp
 Create a VPC named `vpc1`.
 
 ```
-curl -X POST "$RIAS_ENDPOINT/v1/vpcs?version=$API_VERSION" \
+curl -X POST "$VPC_API_ENDPOINT/v1/vpcs?version=$API_VERSION" \
      -H "Authorization: Bearer $iam_token" \
      -d "{ \"name\": \"vpc1\", \
            \"resource_group\": {
@@ -327,7 +327,7 @@ Syntax: [Creates an address pool prefix](https://cloud.ibm.com/apidocs/vpc-on-cl
 
 **Prefix = cidr1 = 10.10.11.0/24**
 ```
-curl -X POST "$RIAS_ENDPOINT/v1/vpcs/$VPC/address_prefixes?version=$API_VERSION" \
+curl -X POST "$VPC_API_ENDPOINT/v1/vpcs/$VPC/address_prefixes?version=$API_VERSION" \
      -H "Authorization: Bearer $iam_token"  \
      -d "{ \"cidr\" : \"10.10.11.0/24\", \
            \"name\" : \"cidr1\", \
@@ -353,7 +353,7 @@ Result
 ```
 **Prefix = cidr2 = 10.10.12.0/24**
 ```
-curl -X POST "$RIAS_ENDPOINT/v1/vpcs/$VPC/address_prefixes?version=$API_VERSION" \
+curl -X POST "$VPC_API_ENDPOINT/v1/vpcs/$VPC/address_prefixes?version=$API_VERSION" \
      -H "Authorization: Bearer $iam_token"  \
      -d "{ \"cidr\" : \"10.10.12.0/24\", \
            \"name\" : \"cidr2\", \
@@ -387,7 +387,7 @@ Syntax: [Create a subnet](https://cloud.ibm.com/apidocs/vpc-on-classic#create-a-
 
 **Subnet1**
 ```
-curl -X POST "$RIAS_ENDPOINT/v1/subnets?version=$API_VERSION" \
+curl -X POST "$VPC_API_ENDPOINT/v1/subnets?version=$API_VERSION" \
      -H "Authorization: Bearer $iam_token" \
      -d "{ \"name\" : \"subnet1\", \
            \"ipv4_cidr_block\" : \"10.10.11.0/24\", \
@@ -428,7 +428,7 @@ Result
 
 **Subnet2**
 ```
-curl -X POST "$RIAS_ENDPOINT/v1/subnets?version=$API_VERSION" \
+curl -X POST "$VPC_API_ENDPOINT/v1/subnets?version=$API_VERSION" \
      -H "Authorization: Bearer $iam_token" \
      -d "{ \"name\" : \"subnet2\", \
            \"ipv4_cidr_block\" : \"10.10.12.0/24\", \
@@ -471,7 +471,7 @@ The initial status of a newly created subnet is set to __*pending*__.  You must 
 
 To check the subnet status, display the subnet details.  Keep checking until the status is set to available. The following command can be used:
 ```
-curl -X GET "$RIAS_ENDPOINT/v1/subnets/$SUBNET2?version=$API_VERSION" \
+curl -X GET "$VPC_API_ENDPOINT/v1/subnets/$SUBNET2?version=$API_VERSION" \
      -H "Authorization: Bearer $iam_token"
 ```
 Result
@@ -517,7 +517,7 @@ Syntax: [Get all instance profiles](https://cloud.ibm.com/apidocs/vpc-on-classic
 
 Limit the query to 2 entries for illustration purposes (remove limit to see all).
 ```
-curl -X GET "$RIAS_ENDPOINT/v1/instance/profiles?version=$API_VERSION&limit=2" \
+curl -X GET "$VPC_API_ENDPOINT/v1/instance/profiles?version=$API_VERSION&limit=2" \
      -H "Authorization: Bearer $iam_token"
 ```
 Result
@@ -553,7 +553,7 @@ Syntax: [Get all images](https://cloud.ibm.com/apidocs/vpc-on-classic#list-all-i
 
 Limit the query to 2 entries & start with the third image for illustration purposes (remove limit/start to see all).
 ```
-curl -X GET "$RIAS_ENDPOINT/v1/images?version=$API_VERSION&limit=2&start=3" \
+curl -X GET "$VPC_API_ENDPOINT/v1/images?version=$API_VERSION&limit=2&start=3" \
      -H "Authorization: Bearer $iam_token"
 ```
 Result
@@ -619,7 +619,7 @@ Syntax: [Create a security group](https://cloud.ibm.com/apidocs/vpc-on-classic#c
 
 **Application Security Group - app_sg**
 ```
-curl -X POST "$RIAS_ENDPOINT/v1/security_groups?version=$API_VERSION" \
+curl -X POST "$VPC_API_ENDPOINT/v1/security_groups?version=$API_VERSION" \
      -H "Authorization: Bearer $iam_token" \
      -d "{ \"name\" : \"app_sg\", \
            \"vpc\" : { \"id\": \"$VPC\" } \
@@ -645,7 +645,7 @@ Result
 
 **Data Security Group - data_sg**
 ```
-curl -X POST "$RIAS_ENDPOINT/v1/security_groups?version=$API_VERSION" \
+curl -X POST "$VPC_API_ENDPOINT/v1/security_groups?version=$API_VERSION" \
      -H "Authorization: Bearer $iam_token" \
      -d "{ \"name\" : \"data_sg\", \
            \"vpc\" : { \"id\": \"$VPC\" } \
@@ -677,7 +677,7 @@ Syntax: [Creates an instance](https://cloud.ibm.com/apidocs/vpc-on-classic#creat
 
 **Instance = MySQL1**
 ```
-curl -X POST "$RIAS_ENDPOINT/v1/instances?version=$API_VERSION" \
+curl -X POST "$VPC_API_ENDPOINT/v1/instances?version=$API_VERSION" \
      -H "Authorization: Bearer $iam_token" \
      -d "{ \"name\" : \"MySQL1\", \
            \"vpc\" : { \"id\" : \"$VPC\" }, \
@@ -768,7 +768,7 @@ Result
 
 **Instance = MySQL2**
 ```
-curl -X POST "$RIAS_ENDPOINT/v1/instances?version=$API_VERSION" \
+curl -X POST "$VPC_API_ENDPOINT/v1/instances?version=$API_VERSION" \
      -H "Authorization: Bearer $iam_token" \
      -d "{ \"name\" : \"MySQL2\", \
            \"vpc\" : { \"id\" : \"$VPC\" }, \
@@ -880,7 +880,7 @@ In this case we will create a second ethernet interface to connect to resources 
 ```
 **Instance = AppServ1**
 ```
-curl -X POST "$RIAS_ENDPOINT/v1/instances?version=$API_VERSION" \
+curl -X POST "$VPC_API_ENDPOINT/v1/instances?version=$API_VERSION" \
      -H "Authorization: Bearer $iam_token" \
      -d "{ \"name\" : \"AppServ1\", \
            \"vpc\" : { \"id\" : \"$VPC\" }, \
@@ -993,7 +993,7 @@ Result
 
 **Instance = AppServ2**
 ```
-curl -X POST "$RIAS_ENDPOINT/v1/instances?version=$API_VERSION" \
+curl -X POST "$VPC_API_ENDPOINT/v1/instances?version=$API_VERSION" \
      -H "Authorization: Bearer $iam_token" \
      -d "{ \"name\" : \"AppServ2\", \
            \"vpc\" : { \"id\" : \"$VPC\" }, \
@@ -1115,7 +1115,7 @@ Syntax: [Creates and provisions a load balancer](https://cloud.ibm.com/apidocs/v
 
 **Load Balancer = LB1**
 ```
-curl -X POST "$RIAS_ENDPOINT/v1/load_balancers?version=$API_VERSION" \
+curl -X POST "$VPC_API_ENDPOINT/v1/load_balancers?version=$API_VERSION" \
      -H "Authorization: Bearer $iam_token" \
      -d "{ \"name\" : \"LB1\", \
            \"is_public\" : true, \
@@ -1157,7 +1157,7 @@ __NOTE: Before proceeding with the configuration step, wait until the operating 
 
 You can verify the load balancer is online with the following command:
 ```
-curl -X GET "$RIAS_ENDPOINT/v1/load_balancers/$LB1?version=$API_VERSION" \
+curl -X GET "$VPC_API_ENDPOINT/v1/load_balancers/$LB1?version=$API_VERSION" \
      -H "Authorization: Bearer $iam_token"
 ```
 Result
@@ -1216,7 +1216,7 @@ Create load balancer `pool1` for `http` protocol using a `round-robin` method an
 
 Syntax: [Creates a pool](https://cloud.ibm.com/apidocs/vpc-on-classic#creates-a-pool)
 ```
-curl -X POST "$RIAS_ENDPOINT/v1/load_balancers/$LB1/pools?version=$API_VERSION" \
+curl -X POST "$VPC_API_ENDPOINT/v1/load_balancers/$LB1/pools?version=$API_VERSION" \
      -H "Authorization: Bearer $iam_token" \
      -d "{ \"name\" : \"pool1\", \
            \"protocol\" : \"http\", \
@@ -1259,7 +1259,7 @@ Syntax: [Creates a member](https://cloud.ibm.com/apidocs/vpc-on-classic#create-a
 
 **Pool member = 10.10.11.6 (AppServ1)**
 ```
-curl -X POST "$RIAS_ENDPOINT/v1/load_balancers/$LB1/pools/$POOL1/members?version=$API_VERSION" \
+curl -X POST "$VPC_API_ENDPOINT/v1/load_balancers/$LB1/pools/$POOL1/members?version=$API_VERSION" \
      -H "Authorization: Bearer $iam_token" \
      -d "{ \"port\" : 80, \
            \"target\" : { \"address\" : \"$APPSERV1_IP\" } \
@@ -1282,7 +1282,7 @@ Result
 ```
 **Pool member = 10.10.11.7 (AppServ2)**
 ```
-curl -X POST "$RIAS_ENDPOINT/v1/load_balancers/$LB1/pools/$POOL1/members?version=$API_VERSION" \
+curl -X POST "$VPC_API_ENDPOINT/v1/load_balancers/$LB1/pools/$POOL1/members?version=$API_VERSION" \
      -H "Authorization: Bearer $iam_token" \
      -d "{ \"port\" : 80, \
            \"target\" : { \"address\" : \"$APPSERV2_IP\" } \
@@ -1309,7 +1309,7 @@ Add a public front-end `http` listener for our web application using port `80` a
 
 Syntax: [Creates a listener](https://cloud.ibm.com/apidocs/vpc-on-classic#create-a-listener)
 ```
-curl -X POST "$RIAS_ENDPOINT/v1/load_balancers/$LB1/listeners?version=$API_VERSION" \
+curl -X POST "$VPC_API_ENDPOINT/v1/load_balancers/$LB1/listeners?version=$API_VERSION" \
      -H "Authorization: Bearer $iam_token" \
      -d "{ \"port\" : 80, \
            \"protocol\" : \"http\", \
@@ -1346,7 +1346,7 @@ Syntax: [Reserve a floating IP](https://cloud.ibm.com/apidocs/vpc-on-classic#res
 
 **FIP = app1fip**
 ```
-curl -X POST "$RIAS_ENDPOINT/v1/floating_ips?version=$API_VERSION" \
+curl -X POST "$VPC_API_ENDPOINT/v1/floating_ips?version=$API_VERSION" \
      -H "Authorization: Bearer $iam_token" \
      -d "{ \"name\" : \"app1fip\", \
            \"zone\" : { \"name\" : \"$ZONE\" } \
@@ -1376,7 +1376,7 @@ Result
 
 **FIP = app2fip**
 ```
-curl -X POST "$RIAS_ENDPOINT/v1/floating_ips?version=$API_VERSION" \
+curl -X POST "$VPC_API_ENDPOINT/v1/floating_ips?version=$API_VERSION" \
      -H "Authorization: Bearer $iam_token" \
      -d "{ \"name\" : \"app2fip\", \
            \"zone\" : { \"name\" : \"$ZONE\" } \
@@ -1406,7 +1406,7 @@ Result
 
 **FIP = data1fip**
 ```
-curl -X POST "$RIAS_ENDPOINT/v1/floating_ips?version=$API_VERSION" \
+curl -X POST "$VPC_API_ENDPOINT/v1/floating_ips?version=$API_VERSION" \
      -H "Authorization: Bearer $iam_token" \
      -d "{ \"name\" : \"data1fip\", \
            \"zone\" : { \"name\" : \"$ZONE\" } \
@@ -1436,7 +1436,7 @@ Result
 
 **FIP = data2fip**
 ```
-curl -X POST "$RIAS_ENDPOINT/v1/floating_ips?version=$API_VERSION" \
+curl -X POST "$VPC_API_ENDPOINT/v1/floating_ips?version=$API_VERSION" \
      -H "Authorization: Bearer $iam_token" \
      -d "{ \"name\" : \"data2fip\", \
            \"zone\" : { \"name\" : \"$ZONE\" } \
@@ -1472,7 +1472,7 @@ Syntax: [Associates a floating IP with a network interface](https://cloud.ibm.co
 
 **Associate app1fip to instance AppServ1**
 ```
-curl -X PATCH "$RIAS_ENDPOINT/v1/floating_ips/$APP1FIP?version=$API_VERSION" \
+curl -X PATCH "$VPC_API_ENDPOINT/v1/floating_ips/$APP1FIP?version=$API_VERSION" \
      -H "Authorization: Bearer $iam_token" \
      -d "{ \"target\" : { \"id\" : \"$APPSERV1_NIC0\" } }"
 ```
@@ -1509,7 +1509,7 @@ Result
 ```
 **Associate app2fip to instance AppServ2**
 ```
-curl -X PATCH "$RIAS_ENDPOINT/v1/floating_ips/$APP2FIP?version=$API_VERSION" \
+curl -X PATCH "$VPC_API_ENDPOINT/v1/floating_ips/$APP2FIP?version=$API_VERSION" \
      -H "Authorization: Bearer $iam_token" \
      -d "{ \"target\" : { \"id\" : \"$APPSERV2_NIC0\" } }"
 ```
@@ -1546,7 +1546,7 @@ Result
 ```
 **Associate data1fip to instance MySQL1**
 ```
-curl -X PATCH "$RIAS_ENDPOINT/v1/floating_ips/$DATA1FIP?version=$API_VERSION" \
+curl -X PATCH "$VPC_API_ENDPOINT/v1/floating_ips/$DATA1FIP?version=$API_VERSION" \
      -H "Authorization: Bearer $iam_token" \
      -d "{ \"target\" : { \"id\" : \"$MYSQL1_NIC\" } }"
 ```
@@ -1583,7 +1583,7 @@ Result
 ```
 **Associate data1fip to instance MySQL2**
 ```
-curl -X PATCH "$RIAS_ENDPOINT/v1/floating_ips/$DATA2FIP?version=$API_VERSION" \
+curl -X PATCH "$VPC_API_ENDPOINT/v1/floating_ips/$DATA2FIP?version=$API_VERSION" \
      -H "Authorization: Bearer $iam_token" \
      -d "{ \"target\" : { \"id\" : \"$MYSQL2_NIC\" } }"
 ```
@@ -1626,7 +1626,7 @@ Syntax: [Create a public gateway](https://cloud.ibm.com/apidocs/vpc-on-classic#c
 
 **Create Public Gateway**
 ```
-curl -X POST "$RIAS_ENDPOINT/v1/public_gateways?version=$API_VERSION" \
+curl -X POST "$VPC_API_ENDPOINT/v1/public_gateways?version=$API_VERSION" \
      -H "Authorization: Bearer $iam_token" \
      -d "{ \"name\" : \"vpc_pub_gw\", \
            \"vpc\" : { \"id\" : \"$VPC\" }, \
@@ -1669,7 +1669,7 @@ Syntax: [Attaches a public gateway to a subnet](https://cloud.ibm.com/apidocs/vp
 
 **Subnet1**
 ```
-curl -X PUT "$RIAS_ENDPOINT/v1/subnets/$SUBNET1/public_gateway?version=$API_VERSION" \
+curl -X PUT "$VPC_API_ENDPOINT/v1/subnets/$SUBNET1/public_gateway?version=$API_VERSION" \
      -H "Authorization: Bearer $iam_token" \
      -d "{ \"id\" : \"$PUBGW\" }"
 ```
@@ -1703,7 +1703,7 @@ Result
 ```
 **Subnet2**
 ```
-curl -X PUT "$RIAS_ENDPOINT/v1/subnets/$SUBNET2/public_gateway?version=$API_VERSION" \
+curl -X PUT "$VPC_API_ENDPOINT/v1/subnets/$SUBNET2/public_gateway?version=$API_VERSION" \
      -H "Authorization: Bearer $iam_token" \
      -d "{ \"id\" : \"$PUBGW\" }"
 ```
@@ -1747,7 +1747,7 @@ Syntax: [Create a security group rule](https://cloud.ibm.com/apidocs/vpc-on-clas
 
 **Add an inbound rule to allow all tcp access on port 22 for SSH access to the VSIs.**
 ```
-curl -X POST "$RIAS_ENDPOINT/v1/security_groups/$APP_SG/rules?version=$API_VERSION" \
+curl -X POST "$VPC_API_ENDPOINT/v1/security_groups/$APP_SG/rules?version=$API_VERSION" \
      -H "Authorization: Bearer $iam_token" \
      -d "{ \"direction\" : \"inbound\", \
            \"protocol\" : \"tcp\", \
@@ -1768,7 +1768,7 @@ Result
 ```
 **Add an inbound rule to allow all tcp access on port 80 for HTTP access to the web application.**
 ```
-curl -X POST "$RIAS_ENDPOINT/v1/security_groups/$APP_SG/rules?version=$API_VERSION" \
+curl -X POST "$VPC_API_ENDPOINT/v1/security_groups/$APP_SG/rules?version=$API_VERSION" \
      -H "Authorization: Bearer $iam_token" \
      -d "{ \"direction\" : \"inbound\", \
            \"protocol\" : \"tcp\", \
@@ -1789,7 +1789,7 @@ Result
 ```
 **Add an outbound rule to allow all outbound access**
 ```
-curl -X POST "$RIAS_ENDPOINT/v1/security_groups/$APP_SG/rules?version=$API_VERSION" \
+curl -X POST "$VPC_API_ENDPOINT/v1/security_groups/$APP_SG/rules?version=$API_VERSION" \
      -H "Authorization: Bearer $iam_token" \
      -d "{ \"direction\" : \"outbound\", \
            \"protocol\" : \"all\"
@@ -1808,7 +1808,7 @@ Result
 
 **Add an inbound rule to allow all tcp access on port 22 for SSH access to the VSIs.**
 ```
-curl -X POST "$RIAS_ENDPOINT/v1/security_groups/$DATA_SG/rules?version=$API_VERSION" \
+curl -X POST "$VPC_API_ENDPOINT/v1/security_groups/$DATA_SG/rules?version=$API_VERSION" \
      -H "Authorization: Bearer $iam_token" \
      -d "{ \"direction\" : \"inbound\", \
            \"protocol\" : \"tcp\", \
@@ -1829,7 +1829,7 @@ Result
 ```
 **Add an inbound rule to allow all tcp access on port 3306 for MySQL (default port for MySQL).**
 ```
-curl -X POST "$RIAS_ENDPOINT/v1/security_groups/$DATA_SG/rules?version=$API_VERSION" \
+curl -X POST "$VPC_API_ENDPOINT/v1/security_groups/$DATA_SG/rules?version=$API_VERSION" \
      -H "Authorization: Bearer $iam_token" \
      -d "{ \"direction\" : \"inbound\", \
            \"protocol\" : \"tcp\", \
@@ -1850,7 +1850,7 @@ Result
 ```
 **Add an outbound rule to allow all outbound access**
 ```
-curl -X POST "$RIAS_ENDPOINT/v1/security_groups/$DATA_SG/rules?version=$API_VERSION" \
+curl -X POST "$VPC_API_ENDPOINT/v1/security_groups/$DATA_SG/rules?version=$API_VERSION" \
      -H "Authorization: Bearer $iam_token" \
      -d "{ \"direction\" : \"outbound\", \
            \"protocol\" : \"all\"
@@ -1877,7 +1877,7 @@ Syntax: [Disassociates specified floating IP](https://cloud.ibm.com/apidocs/vpc-
 
 For example, to remove the floating IP on `AppServ1`:
 ```
-curl -v -X DELETE "$RIAS_ENDPOINT/v1/instances/$APPSERV1/network_interfaces/$APPSERV1_NIC0/floating_ips/$APP1FIP?version=$API_VERSION" \
+curl -v -X DELETE "$VPC_API_ENDPOINT/v1/instances/$APPSERV1/network_interfaces/$APPSERV1_NIC0/floating_ips/$APP1FIP?version=$API_VERSION" \
      -H "Authorization: Bearer $iam_token"
 ```
 The above command will generate a verbose output which will include an HTTP return code (204 expected). The system may take a couple of minutes to disassociate the floating IP.
@@ -1888,6 +1888,6 @@ Syntax: [Release the specified floating IP](https://cloud.ibm.com/apidocs/vpc-on
 
 For example, to release floating IP `app1fip`:
 ```
-curl -X DELETE "$RIAS_ENDPOINT/v1/floating_ips/$APP1FIP?version=$API_VERSION \
+curl -X DELETE "$VPC_API_ENDPOINT/v1/floating_ips/$APP1FIP?version=$API_VERSION \
 -H "Authorization: $iam_token"
 ```

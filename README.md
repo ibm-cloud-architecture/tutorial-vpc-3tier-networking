@@ -18,7 +18,7 @@ Features:
   - With separate network security groups
   - Using bring-your-own-IP
 
-Below is the IBM Virtual Private Cloud (VPC) architecture of the solution showing public isolation for both Application (through a Load Balancer) and data.
+Below is the IBM Virtual Private Cloud (VPC) architecture of the solution showing public isolation for both Application (through an Application Load Balancer) and data.
 
 ## VPC Architecture
 
@@ -30,7 +30,7 @@ Below is the IBM Virtual Private Cloud (VPC) architecture of the solution showin
 - The solution will use HTTP.
 - The LAMP stack will use [Nginx](https://www.nginx.com/) Web Application Server and [MySQL](https://www.mysql.com/) will be deployed on a separate server.
 - Fixes to issues found during the deployment of the environment have been provided. However, these fixes are as of the time of this writing and other issues may occur with new deployments or versions of the stack.
-- Not shown in the architecture diagram is the use a [public IP](https://en.wikipedia.org/wiki/IP_address) addresses in order to deploy the application. IBM VPC uses a [floating IP and a Public Gateway](https://cloud.ibm.com/docs/vpc-on-classic-network?topic=vpc-on-classic-network-about-networking-for-vpc) to allow internet traffic. We will use these to access the VSIs and pull the software from public repositories. Once the images are deployed, floating IPs will be removed for improved system isolation.
+- Not shown in the architecture diagram is the use a [public IP](https://en.wikipedia.org/wiki/IP_address) addresses in order to deploy the application. IBM VPC uses a [floating IP and a Public Gateway](https://cloud.ibm.com/docs/vpc?topic=vpc-about-networking-for-vpc) to allow internet traffic. We will use these to access the VSIs and pull the software from public repositories. Once the images are deployed, floating IPs will be removed for improved system isolation.
 - Bring-Your-Own-Image (BYOI) is not supported at the time of this writing.
 - Network storage not supported at the time of this writing.
 
@@ -42,7 +42,7 @@ Below is the IBM Virtual Private Cloud (VPC) architecture of the solution showin
 | Private IP (BYOIP) | :white_check_mark: | |
 | Virtual Server Instance (VSI) | :white_check_mark: | |
 | Multiple Network Interfaces in VSI | :white_check_mark: | |
-| Load Balancer | :white_check_mark: | |
+| Application Load Balancer | :white_check_mark: | |
 | Floating IPv4 | :white_check_mark: | :warning: Temporary use to deploy application images |
 | Public Gateway | :white_check_mark: | :warning: Temporary use to deploy application images |
 | Storage BYOI support (both boot and secondary) | :warning: | Coming soon |
@@ -53,15 +53,15 @@ Below is the IBM Virtual Private Cloud (VPC) architecture of the solution showin
 
 | Tier  | Operating system |
 | ------------- | ------------- |
-| Web Server & Application | Ubuntu 18.04  |
-| Data  | Ubuntu 18.04  |
+| Web Server & Application | Ubuntu 20.04  |
+| Data  | Ubuntu 20.04  |
 
 #### Hardware
 
 | Tier | Type | Profile |
 | ------------- | ------------- | ------- |
-| Web Server and Application  |  VSI | b-4x16 |
-| Data| VSI  | b-4x16 |
+| Web Server and Application  |  VSI | bx2-4x16 |
+| Data| VSI  | bx2-4x16 |
 
 #### Runtime Services
 
@@ -70,7 +70,7 @@ Below is the IBM Virtual Private Cloud (VPC) architecture of the solution showin
 | None at this time. |
 
 ## Documented Steps
-To build this scenario we will first deploy the VPC infrastructure followed by the deployment and configuration of the application. Then, we will build and configure an HA application cluster to enable scalability of the application when higher traffic requires new nodes added to the load balancer.
+To build this scenario we will first deploy the VPC infrastructure followed by the deployment and configuration of the application. Then, we will build and configure an HA application cluster to enable scalability of the application when higher traffic requires new nodes added to the application load balancer.
 
 ## Prerequisites
 

@@ -98,13 +98,9 @@ Useful links for VPC documentation.
 
 [Getting started with IBM Cloud Virtual Private Cloud](https://cloud.ibm.com/docs/vpc)
 
-[Assigning role-based access to VPC resources](https://cloud.ibm.com/docs/vpc-on-classic?topic=vpc-on-classic-assigning-role-based-access-to-vpc-resources)
+[Assigning role-based access to VPC resources](https://cloud.ibm.com/docs/resources?topic=resources-rgs#rgs)
 
-[IBM Cloud CLI for VPC Reference](https://cloud.ibm.com/docs/vpc-on-classic?topic=vpc-infrastructure-cli-plugin-vpc-reference)
+[IBM Cloud CLI for VPC Reference](https://cloud.ibm.com/docs/vpc?topic=vpc-infrastructure-cli-plugin-vpc-reference)
 
-[VPC API](https://cloud.ibm.com/apidocs/vpc-on-classic)
+[VPC API](https://cloud.ibm.com/apidocs/vpc)
 
-[IBM Cloud Virtual Private Cloud API error messages](https://cloud.ibm.com/docs/vpc-on-classic?topic=vpc-on-classic-rias-error-messages)
-
-## Observations
-None.

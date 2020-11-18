@@ -96,7 +96,7 @@ Application layer failures are included during the deployment and test of the so
 
 Useful links for VPC documentation.
 
-[Getting started with IBM Cloud Virtual Private Cloud](https://cloud.ibm.com/docs/vpc-on-classic?topic=vpc-on-classic-getting-started)
+[Getting started with IBM Cloud Virtual Private Cloud](https://cloud.ibm.com/docs/vpc)
 
 [Assigning role-based access to VPC resources](https://cloud.ibm.com/docs/vpc-on-classic?topic=vpc-on-classic-assigning-role-based-access-to-vpc-resources)
 

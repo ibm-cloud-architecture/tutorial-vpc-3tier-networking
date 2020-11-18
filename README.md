@@ -5,7 +5,7 @@ Build a load balanced [3-tier](https://en.wikipedia.org/wiki/Multitier_architect
 
 Based on [Solution Tutorials - Highly Available & Scalable Web App](https://cloud.ibm.com/docs/tutorials?topic=solution-tutorials-highly-available-and-scalable-web-application#use-virtual-servers-to-build-highly-available-and-scalable-web-app)
 
-This document illustrates the deployment of [WordPress](https://wordpress.com) on top of a [LAMP stack](https://en.wikipedia.org/wiki/LAMP) (software_bundle) hosted on [IBM Virtual Private Cloud Infrastructure](https://cloud.ibm.com/docs/vpc-on-classic?topic=vpc-on-classic-about) (VPC). The main objective is to highlight the features of IBM VPC but at the end of this tutorial, a tested and working application environment will be deployed.
+This document illustrates the deployment of [WordPress](https://wordpress.com) on top of a [LAMP stack](https://en.wikipedia.org/wiki/LAMP) (software_bundle) hosted on [IBM Virtual Private Cloud Infrastructure](https://cloud.ibm.com/docs/vpc) (VPC). The main objective is to highlight the features of IBM VPC but at the end of this tutorial, a tested and working application environment will be deployed.
 
 Features:
 1. Application

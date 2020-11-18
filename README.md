@@ -31,8 +31,8 @@ Below is the IBM Virtual Private Cloud (VPC) architecture of the solution showin
 - The LAMP stack will use [Nginx](https://www.nginx.com/) Web Application Server and [MySQL](https://www.mysql.com/) will be deployed on a separate server.
 - Fixes to issues found during the deployment of the environment have been provided. However, these fixes are as of the time of this writing and other issues may occur with new deployments or versions of the stack.
 - Not shown in the architecture diagram is the use a [public IP](https://en.wikipedia.org/wiki/IP_address) addresses in order to deploy the application. IBM VPC uses a [floating IP and a Public Gateway](https://cloud.ibm.com/docs/vpc?topic=vpc-about-networking-for-vpc) to allow internet traffic. We will use these to access the VSIs and pull the software from public repositories. Once the images are deployed, floating IPs will be removed for improved system isolation.
-- Bring-Your-Own-Image (BYOI) is not supported at the time of this writing.
-- Network storage not supported at the time of this writing.
+- Bring-Your-Own-Image (BYOI) is not included.
+- Network storage is not included.
 
 ## VPC Functional Coverage
 | Function | Result | Notes |
@@ -45,7 +45,6 @@ Below is the IBM Virtual Private Cloud (VPC) architecture of the solution showin
 | Application Load Balancer | :white_check_mark: | |
 | Floating IPv4 | :white_check_mark: | :warning: Temporary use to deploy application images |
 | Public Gateway | :white_check_mark: | :warning: Temporary use to deploy application images |
-| Storage BYOI support (both boot and secondary) | :warning: | Coming soon |
 
 ### System Requirements
 

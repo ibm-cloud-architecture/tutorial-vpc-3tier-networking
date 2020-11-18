@@ -62,11 +62,13 @@ Below is the IBM Virtual Private Cloud (VPC) architecture of the solution showin
 | Web Server and Application  |  VSI | bx2-4x16 |
 | Data| VSI  | bx2-4x16 |
 
+<!---
 #### Runtime Services
 
 | Service Name |
 | ------- |
 | None at this time. |
+-->
 
 ## Documented Steps
 To build this scenario we will first deploy the VPC infrastructure followed by the deployment and configuration of the application. Then, we will build and configure an HA application cluster to enable scalability of the application when higher traffic requires new nodes added to the application load balancer.

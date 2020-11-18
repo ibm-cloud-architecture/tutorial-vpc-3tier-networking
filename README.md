@@ -62,23 +62,15 @@ Below is the IBM Virtual Private Cloud (VPC) architecture of the solution showin
 | Web Server and Application  |  VSI | bx2-4x16 |
 | Data| VSI  | bx2-4x16 |
 
-<!---
-#### Runtime Services
-
-| Service Name |
-| ------- |
-| None at this time. |
--->
-
 ## Documented Steps
 To build this scenario we will first deploy the VPC infrastructure followed by the deployment and configuration of the application. Then, we will build and configure an HA application cluster to enable scalability of the application when higher traffic requires new nodes added to the application load balancer.
 
 ## Prerequisites
 
 The following needs to be executed before starting with the deployment:
-1. Have access to a public SSH key as described in [SSH Keys](https://cloud.ibm.com/docs/vpc-on-classic-vsi?topic=vpc-on-classic-vsi-ssh-keys#ssh-keys).
+1. Have access to a public SSH key as described in [SSH Keys](https://cloud.ibm.com/docs/vpc?topic=vpc-ssh-keys).
 2. Create a new resource group called `VPC1` as described in [Managing resource groups](https://cloud.ibm.com/docs/resources?topic=resources-rgs#rgs)
-3. Once the `VPC1` resource group has been created, update user permissions and provide the required access as described in [Managing user permissions for VPC resources](https://cloud.ibm.com/docs/vpc-on-classic?topic=vpc-on-classic-managing-user-permissions-for-vpc-resources)
+3. Once the `VPC1` resource group has been created, update user permissions and provide the required access as described in [Managing user permissions for VPC resources](https://cloud.ibm.com/docs/vpc?topic=vpc-managing-user-permissions-for-vpc-resources)
 
 ### Deploy VPC Infrastructure
 

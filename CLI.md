@@ -207,7 +207,7 @@ Status                   available
 
 For more information on address prefixes, please refer to [Understanding IP address ranges, address prefixes, regions, and subnets](https://cloud.ibm.com/docs/vpc?topic=vpc-vpc-addressing-plan-design).
 
-Syntax: [Create an address prefix](https://cloud.ibm.com/docs/vpc?topic=vpc-infrastructure-cli-plugin-vpc-reference#vpc-cli-ref)
+Syntax: [Create an address prefix](https://cloud.ibm.com/docs/vpc?topic=vpc-infrastructure-cli-plugin-vpc-reference#vpc-address-prefix-create)
 
 Create address prefixes for `10.10.11.0/24` and `10.10.12.0/24`.
 

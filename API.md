@@ -383,7 +383,7 @@ Create two VPC Subnets for ipv4-cidr-blocks `10.10.11.0/24` and `10.10.12.0/24`.
 
 The __*application*__ tier will be `subnet1` and the __*data*__ tier will be `subnet2`.
 
-Syntax: [Create a subnet](https://cloud.ibm.com/apidocs/vpc-on-classic#create-a-subnet)
+Syntax: [Create a subnet](https://cloud.ibm.com/apidocs/vpc#create-subnet)
 
 **Subnet1**
 ```

@@ -319,11 +319,11 @@ Result
 
 ## Create Address Prefixes
 
-For more information on address prefixes, please refer to [Understanding IP address ranges, address prefixes, regions, and subnets](https://cloud.ibm.com/docs/vpc-on-classic-network?topic=vpc-on-classic-network-working-with-ip-address-ranges-address-prefixes-regions-and-subnets).
+For more information on address prefixes, please refer to [Understanding IP address ranges, address prefixes, regions, and subnets](https://cloud.ibm.com/docs/vpc?topic=vpc-vpc-addressing-plan-design).
 
 Create address prefixes for `10.10.11.0/24` and `10.10.12.0/24`.
 
-Syntax: [Creates an address pool prefix](https://cloud.ibm.com/apidocs/vpc-on-classic#create-an-address-pool-prefix)
+Syntax: [Creates an address pool prefix](https://cloud.ibm.com/apidocs/vpc#create-vpc-address-prefix)
 
 **Prefix = cidr1 = 10.10.11.0/24**
 ```

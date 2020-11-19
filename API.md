@@ -509,11 +509,11 @@ Before continuing we must select an instance profile and image for our VPC insta
 - The profile describes the instance size in terms of CPUs and memory.  To see a list of supported profiles use the `instance-profiles` command.
 - The image is the operating system that will be loaded into the instance. To see a list of available images use the `images` command.
 
-We will use the `b-4x16` balanced profile for all our instances, which is 4 CPUs and 16G of memory.  For OS image, the `ubuntu-18.04-amd64` which is Ubuntu Linux (18.04 LTS Bionic Beaver Minimal Install).
+We will use the `bx2-4x16` balanced profile for all our instances, which is 4 CPUs and 16G of memory.  For OS image, the `ubuntu-18.04-amd64` which is Ubuntu Linux (18.04 LTS Bionic Beaver Minimal Install).
 
 **List instance profiles**
 
-Syntax: [Get all instance profiles](https://cloud.ibm.com/apidocs/vpc-on-classic#list-all-instance-profiles)
+Syntax: [Get all instance profiles](https://cloud.ibm.com/apidocs/vpc#list-instance-profiles)
 
 Limit the query to 2 entries for illustration purposes (remove limit to see all).
 ```

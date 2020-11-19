@@ -108,7 +108,7 @@ We will use the `b-4x16` balanced profile for all our instances, which is 4 CPUs
 
 ## Security Groups and Access Control Lists
 
-For purposes of this use case, we will create two security groups for application and data servers. For more information on security groups, please refer to [Security in your IBM Cloud VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-using-security-Rgroups).
+For purposes of this use case, we will create two security groups for application and data servers. For more information on security groups, please refer to [Security in your IBM Cloud VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-using-security-groups).
 
 In our scenario we will configure the security groups to enable the required ports and protocols.
 

@@ -36,7 +36,7 @@ For this section, the IBM Cloud CLI (Command-Line Interface) will be used.
 
 ## Activities executed to setup the VPC environment
 
-For an overview of IBM Virtual Private Cloud (VPC), please refer to [About VPC](https://cloud.ibm.com/docs/vpc?topic=vpc).
+For an overview of IBM Virtual Private Cloud (VPC), please refer to [About VPC](https://cloud.ibm.com/docs/vpc).
 
 1. Create an SSH key to be used when a virtual instance (VSI) resource is created.
 2. Create a VPC.

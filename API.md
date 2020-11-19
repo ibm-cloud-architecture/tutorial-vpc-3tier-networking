@@ -276,7 +276,7 @@ Result
 
 ## Create VPC
 
-Syntax: [Creates a VPC](https://cloud.ibm.com/docs/vpc-creating-a-vpc-using-the-rest-apis#create-vpc-api-tutorial)
+Syntax: [Creates a VPC](https://cloud.ibm.com/apidocs/vpc#create-vpc)
 
 Create a VPC named `vpc1`.
 

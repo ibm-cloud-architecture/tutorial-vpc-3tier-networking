@@ -613,9 +613,9 @@ Result
 
 ## Security Groups and Access Control Lists
 
-For purposes of this use case, we will create two security groups for application and data servers. For more information on security groups, please refer to [Security in your IBM Cloud VPC](https://cloud.ibm.com/docs/vpc-on-classic-network?topic=vpc-on-classic-network-security-in-your-ibm-cloud-vpc).
+For purposes of this use case, we will create two security groups for application and data servers. For more information on security groups, please refer to [Security in your IBM Cloud VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-using-security-groups).
 
-Syntax: [Create a security group](https://cloud.ibm.com/docs/vpc?topic=vpc-setting-up-security-groups-using-the-apis#step-1-create-a-security-group)
+Syntax: [Create a security group](https://cloud.ibm.com/apidocs/vpc#create-security-group)
 
 **Application Security Group - app_sg**
 ```

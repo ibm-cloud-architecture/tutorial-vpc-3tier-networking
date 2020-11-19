@@ -13,7 +13,7 @@ For this section, the [IBM Virtual Private Cloud API](https://cloud.ibm.com/docs
 
    Once generated, create an environment variable labeled `APIKEY`.  Example: `APIKEY=<value of your API Key>`
 
-5. The IBM Cloud VPC APIs noted in this document were executed using version `2019-01-01`. For more information please refer to [VPC API Versioning](https://cloud.ibm.com/docs/vp?topic=vpc-set-up-environment#store-api-version-variable)
+5. The IBM Cloud VPC APIs noted in this document were executed using version `2019-01-01`. For more information please refer to [VPC API Versioning](https://cloud.ibm.com/docs/vpc?topic=vpc-set-up-environment#store-api-version-variable)
 6. Generate an IAM authorization token.
 
 ### Generate an IAM Bearer Authorization Token

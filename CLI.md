@@ -7,7 +7,7 @@ For this section, the IBM Cloud CLI (Command-Line Interface) will be used.
 ## Prerequisites
 
 0. Any prerequisites mentioned in the *Basic 3-Tier Web App (with LB)* main page like providing required user access.
-1. Install the [IBM Cloud CLI](https://cloud.ibm.com/docs/cli?topic=cloud-cli-ibmcloud-cli#getting-started)
+1. Install the [IBM Cloud CLI](https://cloud.ibm.com/docs/cli?topic=cli-getting-started)
 2. Install the vpc-infrastructure plugin using the following CLI command:
    ```
    ibmcloud plugin install vpc-infrastructure
@@ -28,7 +28,7 @@ For this section, the IBM Cloud CLI (Command-Line Interface) will be used.
    sdk-gen                                0.1.12
    cloud-functions/wsk/functions/fn       1.0.27    Update Available
    ```
-   After plugin installation, vpc-infrastructure commands can be executed with `ibmcloud is`. The syntax for each of these commands is defined in [IBM Cloud CLI for VPC Reference](https://cloud.ibm.com/docs/vpc-on-classic?topic=vpc-infrastructure-cli-plugin-vpc-reference).
+   After plugin installation, vpc-infrastructure commands can be executed with `ibmcloud is`. The syntax for each of these commands is defined in [IBM Cloud CLI for VPC Reference](https://cloud.ibm.com/docs/vpc?topic=vpc-creating-a-vpc-using-cli).
 
    Note that the syntax of a command may be updated on a new release of the vpc-infrastructure. However, there may be some delays to update the online documentation. The following command can be executed from the command line to obtain its syntax:
 
@@ -36,7 +36,7 @@ For this section, the IBM Cloud CLI (Command-Line Interface) will be used.
 
 ## Activities executed to setup the VPC environment
 
-For an overview of IBM Virtual Private Cloud (VPC), please refer to [About VPC](https://cloud.ibm.com/docs/vpc-on-classic?topic=vpc-on-classic-about).
+For an overview of IBM Virtual Private Cloud (VPC), please refer to [About VPC](https://cloud.ibm.com/docs/vpc?topic=vpc).
 
 1. Create an SSH key to be used when a virtual instance (VSI) resource is created.
 2. Create a VPC.
@@ -67,7 +67,7 @@ If you have an API Key, use --apikey:
 
 Resources in IBM Cloud are assigned to a Resource Group. In our case, we want to use resource group **VPC1** that was created previously. In addition, we will allocate the resources in the **us-south** region.
 
-For more information on Regions and Zones please refer to [Creating a VPC in a different region](https://cloud.ibm.com/docs/vpc-on-classic?topic=vpc-on-classic-creating-a-vpc-in-a-different-region).
+For more information on Regions and Zones please refer to [Creating a VPC in a different region](https://cloud.ibm.com/docs/vpc?topic=vpc-creating-a-vpc-in-a-different-region).
 
 ### Set Resource Group and Zone
 
@@ -157,7 +157,7 @@ An SSH key is required when creating a VPC instance. We will use a public key pr
 
 Copy the SSH public key you wish to use to file `vpc-key.pub` and call the key-create command to load it to the VPC environment. Optionally, you can just use the public key directly (.ssh/id_rsa.pub).
 
-Syntax: [Import an RSA public key](https://cloud.ibm.com/docs/vpc-on-classic?topic=vpc-infrastructure-cli-plugin-vpc-reference#key-create)
+Syntax: [Import an RSA public key](https://cloud.ibm.com/docs/vpc?topic=vpc-creating-a-vpc-using-cli#add-ssh-key-cli)
 
 Create an SSH key named `vpc-key`
 ```
@@ -180,7 +180,7 @@ Created       now
 
 ## Create VPC
 
-Syntax: [Create a VPC](https://cloud.ibm.com/docs/vpc-on-classic?topic=vpc-infrastructure-cli-plugin-vpc-reference#vpc-create)
+Syntax: [Create a VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-creating-a-vpc-using-cli)
 
 Create a VPC named `wp_vpc`.
 
@@ -205,9 +205,9 @@ Status                   available
 
 ## Create Address Prefixes
 
-For more information on address prefixes, please refer to [Understanding IP address ranges, address prefixes, regions, and subnets](https://cloud.ibm.com/docs/vpc-on-classic-network?topic=vpc-on-classic-network-working-with-ip-address-ranges-address-prefixes-regions-and-subnets).
+For more information on address prefixes, please refer to [Understanding IP address ranges, address prefixes, regions, and subnets](https://cloud.ibm.com/docs/vpc?topic=vpc-vpc-addressing-plan-design).
 
-Syntax: [Create an address prefix](https://cloud.ibm.com/docs/vpc-on-classic?topic=vpc-infrastructure-cli-plugin-vpc-reference#vpc-address-prefix-create)
+Syntax: [Create an address prefix](https://cloud.ibm.com/docs/vpc?topic=vpc-infrastructure-cli-plugin-vpc-reference#vpc-cli-ref)
 
 Create address prefixes for `10.10.11.0/24` and `10.10.12.0/24`.
 
@@ -250,7 +250,7 @@ Create two VPC Subnets for ipv4-cidr-blocks `10.10.11.0/24` and `10.10.12.0/24`.
 
 The __*application*__ tier will be `subnet1` and the __*data*__ tier will be `subnet2`.
 
-Syntax: [Create a subnet](https://cloud.ibm.com/docs/vpc-on-classic?topic=vpc-infrastructure-cli-plugin-vpc-reference#subnet-create)
+Syntax: [Create a subnet](https://cloud.ibm.com/docs/vpc?topic=vpc-infrastructure-cli-plugin-vpc-reference#subnet-create)
 
 **Subnet1**
 ```
@@ -382,9 +382,9 @@ b45450d3-1a17-2226-c518-a8ad0a75f5f8   windows-2012-amd64      -        Windows 
 
 ## Security Groups and Access Control Lists
 
-For purposes of this use case, we will create two security groups for application and data servers. For more information on security groups, please refer to [Security in your IBM Cloud VPC](https://cloud.ibm.com/docs/vpc-on-classic-network?topic=vpc-on-classic-network-security-in-your-ibm-cloud-vpc).
+For purposes of this use case, we will create two security groups for application and data servers. For more information on security groups, please refer to [Security in your IBM Cloud VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-using-security-groups).
 
-Syntax: [Create a security group](https://cloud.ibm.com/docs/vpc-on-classic?topic=vpc-infrastructure-cli-plugin-vpc-reference#security-group-create)
+Syntax: [Create a security group](https://cloud.ibm.com/docs/vpc?topic=vpc-infrastructure-cli-plugin-vpc-reference#security-group-create)
 
 **Application Security Group - app_sg**
 ```
@@ -422,7 +422,7 @@ Resource Group   -
 
 Now we have all the required information, let's create two Ubuntu 18.04 VSIs in `subnet2` for the MySQL backend.
 
-Syntax: [Create a server instance](https://cloud.ibm.com/docs/vpc-on-classic?topic=vpc-infrastructure-cli-plugin-vpc-reference#instance-create)
+Syntax: [Create a server instance](https://cloud.ibm.com/docs/vpc?topic=vpc-infrastructure-cli-plugin-vpc-reference#instance-create)
 
 **Instance = MySQL1**
 ```
@@ -594,13 +594,13 @@ Zone                     us-south-1
 
 ## Create Web Tier VPC Instance
 
-In this section we will create and configure a VPC load balancer for the web application tier. For more information on configuration of load Balancers (listeners, back-end pools, etc.) see [Using Load Balancers for VPC](https://cloud.ibm.com/docs/vpc-on-classic-network?topic=vpc-on-classic-network---using-load-balancers-in-ibm-cloud-vpc)
+In this section we will create and configure a VPC load balancer for the web application tier. For more information on configuration of load Balancers (listeners, back-end pools, etc.) see [Using Load Balancers for VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-nlb-vs-elb)
 
 ### Create the Load Balancer
 
 Create a `public` load balancer `lb1` on `subnet1`.
 
-Syntax: [Create a Load Balancer](https://cloud.ibm.com/docs/vpc-on-classic?topic=vpc-infrastructure-cli-plugin-vpc-reference#load-balancer-create)
+Syntax: [Create a Load Balancer](https://cloud.ibm.com/docs/vpc?topic=vpc-infrastructure-cli-plugin-vpc-reference#load-balancer-create)
 
 **Load Balancer = LB1**
 ```
@@ -662,7 +662,7 @@ Configuring the load balancer involves creating a pool, pool members and a liste
 
 Create load balancer `Pool1` for `http` protocol using a `round-robin` method and health checks every `20 seconds`.
 
-Syntax: [Create a load balancer pool](https://cloud.ibm.com/docs/vpc-on-classic?topic=vpc-infrastructure-cli-plugin-vpc-reference#load-balancer-pool-create)
+Syntax: [Create a load balancer pool](https://cloud.ibm.com/docs/vpc?topic=vpc-infrastructure-cli-plugin-vpc-reference#load-balancer-pool-create)
 ```
 ibmcloud is load-balancer-pool-create pool1 $LB1 round_robin http 20 3 5 http
 ```
@@ -692,7 +692,7 @@ Created                           now
 
 Add a pool member for each application server.  In our case we will have two pool members: `AppServ1` and `AppServ2`. Port `80` will be used to communicate with he servers.
 
-Syntax: [Create a load balancer pool member](https://cloud.ibm.com/docs/vpc-on-classic?topic=vpc-infrastructure-cli-plugin-vpc-reference#load-balancer-pool-member-create)
+Syntax: [Create a load balancer pool member](https://cloud.ibm.com/docs/vpc?topic=vpc-infrastructure-cli-plugin-vpc-reference#load-balancer-pool-member-create)
 
 **Pool member = 10.10.11.13 (AppServ1)**
 ```
@@ -731,7 +731,7 @@ Provision Status   create_pending
 
 Add a public front-end `http` listener for our web application using port `80` and assign it to back-end pool `Pool1`
 
-Syntax: [Create a load balancer listener](https://cloud.ibm.com/docs/vpc-on-classic?topic=vpc-infrastructure-cli-plugin-vpc-reference#load-balancer-listener-create)
+Syntax: [Create a load balancer listener](https://cloud.ibm.com/docs/vpc?topic=vpc-infrastructure-cli-plugin-vpc-reference#load-balancer-listener-create)
 
 ```
 ibmcloud is load-balancer-listener-create $LB1 80 http --default-pool $POOL1
@@ -760,7 +760,7 @@ Because custom images are not supported (Bring-Your-Own-Image), we will enable a
 
 Reserve and associate a floating IP address to enable each instance to be reachable from the internet.
 
-Syntax: [Reserve a floating IP](https://cloud.ibm.com/docs/vpc-on-classic?topic=vpc-infrastructure-cli-plugin-vpc-reference#floating-ip-reserve)
+Syntax: [Reserve a floating IP](https://cloud.ibm.com/docs/vpc?topic=vpc-infrastructure-cli-plugin-vpc-reference#floating-ip-reserve)
 
 **FIP = app1fip**
 ```
@@ -850,7 +850,7 @@ Resource Group   (594a009f2d4b4128ad1f25b55c991de0)
 
 Add a reserved IP address to each VPC instance's primary interface (obtained when each server was created).
 
-Syntax: [Associate a floating IP with a network interface](https://cloud.ibm.com/docs/vpc-on-classic?topic=vpc-infrastructure-cli-plugin-vpc-reference#instance-network-interface-floating-ip-add)
+Syntax: [Associate a floating IP with a network interface](https://cloud.ibm.com/docs/vpc?topic=vpc-infrastructure-cli-plugin-vpc-reference#instance-network-interface-floating-ip-add)
 
 **Associate app1fip to instance AppServ1**
 ```
@@ -929,7 +929,7 @@ Zone          us-south-1
 
 Create a Public Gateway to give access to the internet and deploy images to the application and database servers from the public repositories.
 
-Syntax: [Create a public gateway](https://cloud.ibm.com/docs/vpc-on-classic?topic=vpc-infrastructure-cli-plugin-vpc-reference#public-gateway-create)
+Syntax: [Create a public gateway](https://cloud.ibm.com/docs/vpc?topic=vpc-infrastructure-cli-plugin-vpc-reference#public-gateway-create)
 
 **Create Public Gateway - wp_vpc_pub_gw**
 ```
@@ -952,7 +952,7 @@ Resource Group   -
 
 **Add Public Gateway to each subnet**
 
-Syntax: [Update a subnet](https://cloud.ibm.com/docs/vpc-on-classic?topic=vpc-infrastructure-cli-plugin-vpc-reference#subnet-update)
+Syntax: [Update a subnet](https://cloud.ibm.com/docs/vpc?topic=vpc-infrastructure-cli-plugin-vpc-reference#subnet-update)
 
 **Subnet1**
 ```
@@ -1005,7 +1005,7 @@ In our scenario we will configure the security groups to enable the required por
 
 To allow ssh, MySQL, and HTTP traffic, in each security group do the following:
 
-Syntax: [Add a rule to a security group. The IP version defaults to IPv4](https://cloud.ibm.com/docs/vpc-on-classic?topic=vpc-infrastructure-cli-plugin-vpc-reference#security-group-rule-add)
+Syntax: [Add a rule to a security group. The IP version defaults to IPv4](https://cloud.ibm.com/docs/vpc?topic=vpc-infrastructure-cli-plugin-vpc-reference#security-group-rule-add)
 
 **Application Security Group**
 
@@ -1113,7 +1113,7 @@ At this point the VPC infrastructure components are ready for the next step whic
 
 Once the environment is up and running, you can remove the floating IPs to remove public access on the VSIs.
 
-Syntax: [Disassociate floating IP](https://cloud.ibm.com/docs/vpc-on-classic?topic=vpc-infrastructure-cli-plugin-vpc-reference#instance-network-interface-floating-ip-remove)
+Syntax: [Disassociate floating IP](https://cloud.ibm.com/docs/vpc?topic=vpc-infrastructure-cli-plugin-vpc-reference#instance-network-interface-floating-ip-remove)
 
 For example, to remove the floating IP on `AppServ1`:
 ```
@@ -1122,7 +1122,7 @@ ibmcloud is instance-network-interface-floating-ip-remove $APPSERV1 $APPSERV1_NI
 
 Optionally, you can also release the Floating IPs if there is no longer a need for them.
 
-Syntax: [ibmcloud is floating-ip-release](https://cloud.ibm.com/docs/vpc-on-classic?topic=vpc-infrastructure-cli-plugin-vpc-reference#floating-ip-release)
+Syntax: [ibmcloud is floating-ip-release](https://cloud.ibm.com/docs/vpc?topic=vpc-infrastructure-cli-plugin-vpc-reference#floating-ip-release)
 
 For example, to release floating IP `app1fip`:
 ```

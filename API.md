@@ -673,7 +673,7 @@ Result
 
 Now we have all the required information, let's create two Ubuntu 18.04 VSIs in `subnet2` for the MySQL backend.
 
-Syntax: [Creates an instance](https://cloud.ibm.com/docs/vpc?topic-vpc-creating-a-vpc-using-the-rest-apis#create-instance-api-tutorial)
+Syntax: [Creates an instance](https://cloud.ibm.com/apidocs/vpc#create-instance)
 
 **Instance = MySQL1**
 ```

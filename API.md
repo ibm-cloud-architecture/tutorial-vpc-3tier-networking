@@ -549,7 +549,7 @@ Result
 ```
 **List Images**
 
-Syntax: [Get all images](https://cloud.ibm.com/apidocs/vpc-on-classic#list-all-images)
+Syntax: [Get all images](https://cloud.ibm.com/apidocs/vpc#list-images)
 
 Limit the query to 2 entries & start with the third image for illustration purposes (remove limit/start to see all).
 ```

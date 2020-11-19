@@ -22,7 +22,7 @@ Below is the IBM Virtual Private Cloud (VPC) architecture of the solution showin
 
 ## VPC Architecture
 
-![3tier Web App](tutorial-vpc-3tier-networking.png)
+![3tier Web App](images/tutorial-vpc-3tier-networking.png)
 
 ## Assumptions and Limitations
 

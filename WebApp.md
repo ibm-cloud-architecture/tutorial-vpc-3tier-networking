@@ -6,7 +6,7 @@ For this use case, we will install the open source `WordPress` web site creation
 
 ## VPC Data Flow Architecture
 
-![3tier Web App Data Flow](3TWebAppDataFlowDrawio.png)
+![3tier Web App Data Flow](images/3TWebAppDataFlowDrawio.png)
 
 ## Prerequisites
 

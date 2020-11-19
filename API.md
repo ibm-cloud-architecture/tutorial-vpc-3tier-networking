@@ -247,7 +247,7 @@ An SSH key is required when creating a VPC instance. We will use a public key pr
 
 Copy the SSH public key you wish to use into environment variable `SSH_KEY`. An example using a Linux command: `SSH_KEY=$(cat ~/.ssh/id_rsa.pub)`
 
-Syntax: [Creates a key](https://cloud.ibm.com/docs/vpc?topic=vpc-creating-a-vpc-using-the-rest-apis#add-ssh-key-api-tutorial)
+Syntax: [Creates a key](https://cloud.ibm.com/apidocs/vpc#create-key)
 
 Create an SSH key named `vpc-key`
 ```

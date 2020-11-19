@@ -10,7 +10,7 @@ For this section, the IBM Cloud User Interface (UI) will be used.
 
 ## Activities executed to setup the VPC environment
 
-For an overview of IBM Virtual Private Cloud (VPC), please refer to [About VPC](https://cloud.ibm.com/docs/vpc-on-classic?topic=vpc-on-classic-about).
+For an overview of IBM Virtual Private Cloud (VPC), please refer to [About VPC](https://cloud.ibm.com/docs/vpc).
 
 1. Create an SSH key to be used when a virtual instance (VSI) resource is created.
 2. Create a VPC.
@@ -36,7 +36,7 @@ Browse to https://cloud.ibm.com/login and login.
 
 Resourced in IBM Cloud are assigned to a Resource Group. In our case, we want to use resource group **VPC1** that was created previously. In addition, we will allocate the resources in the **us-south** region and zone **Dallas 1**.
 
-For more information on Regions and Zones please refer to [Creating a VPC in a different region](https://cloud.ibm.com/docs/vpc-on-classic?topic=vpc-on-classic-creating-a-vpc-in-a-different-region).
+For more information on Regions and Zones please refer to [Creating a VPC in a different region](https://cloud.ibm.com/docs/vpc?topic=vpc-creating-a-vpc-in-a-different-region).
 
 Select VPC Infrastructure from the hamburger menu in the upper left corner.
 
@@ -62,7 +62,7 @@ Use `subnet0` for subnet and **attach** a Public Gateway. The public gateway wil
 
 ## Create Address Prefixes
 
-For more information on address prefixes, please refer to [Understanding IP address ranges, address prefixes, regions, and subnets](https://cloud.ibm.com/docs/vpc-on-classic-network?topic=vpc-on-classic-network-working-with-ip-address-ranges-address-prefixes-regions-and-subnets).
+For more information on address prefixes, please refer to [Understanding IP address ranges, address prefixes, regions, and subnets](https://cloud.ibm.com/docs/vpc?topic=vpc-vpc-addressing-plan-design).
 
 Create address prefixes for `10.10.11.0/24` and `10.10.12.0/24`.
 
@@ -108,7 +108,7 @@ We will use the `b-4x16` balanced profile for all our instances, which is 4 CPUs
 
 ## Security Groups and Access Control Lists
 
-For purposes of this use case, we will create two security groups for application and data servers. For more information on security groups, please refer to [Security in your IBM Cloud VPC](https://cloud.ibm.com/docs/vpc-on-classic-network?topic=vpc-on-classic-network-security-in-your-ibm-cloud-vpc).
+For purposes of this use case, we will create two security groups for application and data servers. For more information on security groups, please refer to [Security in your IBM Cloud VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-using-security-Rgroups).
 
 In our scenario we will configure the security groups to enable the required ports and protocols.
 
@@ -173,7 +173,7 @@ Select:
 
 ## Create Web Tier VPC Instance
 
-In this section we will create and configure a VPC load balancer for the web application tier. For more information on configuration of load Balancers (listeners, back-end pools, etc.) see [Using Load Balancers for VPC](https://cloud.ibm.com/docs/vpc-on-classic-network?topic=vpc-on-classic-network---using-load-balancers-in-ibm-cloud-vpc)
+In this section we will create and configure a VPC load balancer for the web application tier. For more information on configuration of load Balancers (listeners, back-end pools, etc.) see [Using Load Balancers for VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-nlb-vs-elb)
 
 ### Create the Load Balancer
 

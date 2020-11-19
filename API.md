@@ -95,7 +95,7 @@ For more information on Regions and Zones please refer to [Creating a VPC in a d
 
 ### Set Region and Zone
 
-The [VPC API endpoint](https://cloud.ibm.com/docs/vpc?topic=vpc-setup-environment#store-api-endpoint-variable) is based on the region of the service and follows the convention `https://<region>.iaas.cloud.ibm.com`. We will be using the `us-south` region. Use the following cURL command to get the list of regions and their API endpoint:
+The [VPC API endpoint](https://cloud.ibm.com/docs/vpc?topic=vpc-set-up-environment#store-api-endpoint-variable) is based on the region of the service and follows the convention `https://<region>.iaas.cloud.ibm.com`. We will be using the `us-south` region. Use the following cURL command to get the list of regions and their API endpoint:
 ```
 curl -X GET "https://us-south.iaas.cloud.ibm.com/v1/regions?version=2019-01-01" \
      -H "Authorization: Bearer $iam_token"

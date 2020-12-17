@@ -11,7 +11,7 @@ Features:
 1. Application
   - A load balanced application - WordPress
   - Using multiple databases - HyperDB
-  - With master/slave data replication - MySQL
+  - With source/replica data replication - MySQL
 2. Infrastructure
   - Public isolation - VPC
   - Where application and data layers are deployed on separate subnets

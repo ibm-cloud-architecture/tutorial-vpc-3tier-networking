@@ -22,7 +22,7 @@ For this use case, we will install the open source `WordPress` web site creation
 2. Install and test PHP and Nginx on `AppServ1` and `AppServ2`.
 3. Install and test WordPress on `AppServ1`.
 4. Test WordPress on `AppServ1`.
-5. Install and test database replication from `MySQL1` (master) to `MySQL2` (slave).
+5. Install and test database replication from `MySQL1` (source) to `MySQL2` (replica).
 6. Install and test HyperDB on `AppServ1`.
 7. Install and test WordPress on `AppServ2`.
 8. Test Load Balancer.
@@ -611,11 +611,11 @@ In this section we will use [MySQL database replication](https://dev.mysql.com/d
 
 ## MySQL Database Replication.
 
-MySQL replication enables data from one MySQL database server (the master) to be copied automatically to one or more MySQL database servers (the slaves). Replication is usually used to spread read access on multiple servers for scalability. In addition, since the data is replicated to multiple databases, these can work as backups or failovers when the master is not available.
+MySQL replication enables data from one MySQL database server (source database) to be copied automatically to one or more MySQL database servers (replica database). Replication is usually used to spread read access on multiple servers for scalability. In addition, since the data is replicated to multiple databases, these can work as backups or failovers when the source database is not available.
 
-Replication is asynchronous by default; slaves do not need to be connected permanently to receive updates from the master. Depending on the configuration, you can replicate all databases, selected databases, or even selected tables within a database.
+Replication is asynchronous by default; replica databases do not need to be connected permanently to receive updates from the source database. Depending on the configuration, you can replicate all databases, selected databases, or even selected tables within a database.
 
-In our scenario, we will configure `MySQL2` as a replica (**slave**) of `MySQL1` (**master**) to enable a scalability of the solution.
+In our scenario, we will configure `MySQL2` as a **replica** database of `MySQL1` as the **source** database to enable scalability of the solution.
 
 ### Configure MySQL1 - Master
 
@@ -624,14 +624,14 @@ Connect to the MySQL1 server using the reserved floating ip address.
 $ ssh root@169.61.244.78
 ```
 
-Edit the MySQL configuration file `/etc/mysql/my.cnf` and add the following to the `[mysqld]` group to configure it as the the master database.
+Edit the MySQL configuration file `/etc/mysql/my.cnf` and add the following to the `[mysqld]` group to configure it as the source database.
 ```
 server-id       = 1
 log_bin         = /var/log/mysql/mysql-bin.log
 binlog_do_db    = wordpress
 ```
-- `server-id` - With MySQL master-slave replication each instance must have its own unique server-id, use 1 for the master.
-- `log_bin` - Name and location of the binary log file. This log is used by the slave nodes to replicate registered database changes.
+- `server-id` - With MySQL source-replica replication each instance must have its own unique server-id, use 1 for the source database.
+- `log_bin` - Name and location of the binary log file. This log is used by the replica databases to replicate registered database changes.
 - `binlog_do_db` - Database to be replicated. In out case, `wordpress`.
 
 Restart MySQL.
@@ -639,14 +639,14 @@ Restart MySQL.
 systemctl restart mysql
 ```
 
-Prepare master database.  This will require two seperate ssh sessions to `MySQL1`.  On the first ssh session
-configure the MySQL master.
+Prepare source database.  This will require two seperate ssh sessions to `MySQL1`.  On the first ssh session
+configure the MySQL source database.
 
 Login to MySQL
 ```
 mysql -u root -p
 ```
-We need to grant privileges to the slave. The following command will set the slave's user name and password:
+We need to grant privileges to the replica. The following command will set the replica database's user name and password:
 
    - GRANT REPLICATION SLAVE ON *.* TO `'slave_user'`@'%' IDENTIFIED BY `'password'`;
 
@@ -698,7 +698,7 @@ You will see something like this:
 +------------------+----------+--------------+------------------+-------------------+
 1 row in set (0.00 sec)
 ```
-This is the `position` from which the slave database will start replicating. Record both the `file` name and the `position`. These will be needed later when configuring the `slave` node.
+This is the `position` from which the replica database will start replicating. Record both the `file` name and the `position`. These will be needed later when configuring the `replica` node.
 
 **Note:** If you make any new changes in the current SSH window, the database will automatically unlock. For this reason, you should open a new ssh session to MySQL1 and continue with the next steps there.
 
@@ -728,7 +728,7 @@ Result
 Bye
 ```
 
-At this time the configuration of the `master` database is completed.
+At this time the configuration of the `source` database is completed.
 
 ### Configure MySQL2 - Slave
 
@@ -755,7 +755,7 @@ Connect to the `MySQL2` server using the reserved floating ip address.
 ```
 $ ssh root@169.61.244.62
 ```
-Import the database that you previously exported from the `master` database (`MySQL1`).
+Import the database that you previously exported from the `source` database (`MySQL1`).
 ```
 mysql -u root -p wordpress < wordpress.sql
 ```
@@ -803,14 +803,14 @@ Exit MySQL.
 ```
 quit;
 ```
-Now we need to configure the `slave` configuration in the same way as we did with the master. Edit file `/etc/mysql/my.cnf` and append the following lines to `[mysqld]` block.
+Now we need to configure the `replica` configuration in the same way as we did with the source database. Edit file `/etc/mysql/my.cnf` and append the following lines to `[mysqld]` block.
 ```
 server-id       = 2
 relay-log       = /var/log/mysql/mysql-relay-bin.log
 log_bin         = /var/log/mysql/mysql-bin.log
 binlog_do_db    = wordpress
 ```
-The new entry, `relay-log`, is a set of log files created by a slave during replication. It's the same format as the binary log, containing a record of events that affect the data or structure; thus, mysqlbinlog can be used to display its contents.
+The new entry, `relay-log`, is a set of log files created by a replica during replication. It's the same format as the binary log, containing a record of events that affect the data or structure; thus, mysqlbinlog can be used to display its contents.
 
 Restart MySQL.
 ```
@@ -822,11 +822,11 @@ The next step is to enable the replication from within the MySQL shell. Login to
 mysql -u root -p
 ```
 
-The following command will be used to link to the `master` node (MySQL1).
+The following command will be used to link to the `source` node (MySQL1).
 
    - CHANGE MASTER TO MASTER_HOST=`'<master_ip>'`,MASTER_USER=`'<slave_user>'`, MASTER_PASSWORD=`'<password>'`, MASTER_LOG_FILE=`'<master_log>'`, MASTER_LOG_POS=`<master_log_position>`;
 
-Set `MASTER_LOG_FILE` and `MASTER_LOG_POS` to values previously saved when `SHOW MASTER STATUS` was executed on the master (`mysql-bin.000003` and `6941`). `MASTER_HOST` will be the IP address for MySQL1.
+Set `MASTER_LOG_FILE` and `MASTER_LOG_POS` to values previously saved when `SHOW MASTER STATUS` was executed on the source database (`mysql-bin.000003` and `6941`). `MASTER_HOST` will be the IP address for MySQL1.
 
 In this example, the values used are:
 ```
@@ -836,7 +836,7 @@ MASTER_PASSWORD = 'mysqlpass'
 MASTER_LOG_FILE = 'mysql-bin.000003'
 MASTER_LOG_POS  = 6941;
 ```
-Change to `master`
+Change to `source` database
 ```
 CHANGE MASTER TO MASTER_HOST='10.10.12.7',MASTER_USER='root', MASTER_PASSWORD='mysqlpass',MASTER_LOG_FILE='mysql-bin.000001', MASTER_LOG_POS=6941;
 ```
@@ -844,7 +844,7 @@ Result
 ```
 Query OK, 0 rows affected, 2 warnings (0.02 sec)
 ```
-Start the `slave`
+Start the `replica`
 ```
 START SLAVE;
 ```
@@ -852,9 +852,9 @@ Result
 ```
 Query OK, 0 rows affected (0.00 sec)
 ```
-Show the the details of the slave replication by typing the following command. (The \G rearranges the text to make it more readable).
+Show the the details of the replica by typing the following command. (The \G rearranges the text to make it more readable).
 
-Confirm replication is active with rows `Slave_IO_Running` and `Slave_SQL_Running` set to `yes`. Also the `Read_Master_Log_Pos` will be set to the current index in the `master` (use SHOW MASTER STATUS; on MySQL1 to see current value).
+Confirm replication is active with rows `Slave_IO_Running` and `Slave_SQL_Running` set to `yes`. Also the `Read_Master_Log_Pos` will be set to the current index in the `source` database (use SHOW MASTER STATUS; on MySQL1 to see current value).
 ```
 SHOW SLAVE STATUS\G
 ```
@@ -925,7 +925,7 @@ At this point, configuration for MySQL database replication is complete.
 
 **NOTE:**
 
-### Test data replication on slave - MySQL2
+### Test data replication on replica - MySQL2
 
 Still at the `mysql>` prompt, we will execute a series of SQL queries.
 
@@ -968,7 +968,7 @@ mysql> select count(*) from wp_comments;
 
 The `HyperDB` plugin replaces the standard `wpdb` class so that WordPress is able to write and read from additional database servers. The drop-in plugin supports database replication, failover, load balancing, and partitioning — all tools for scaling WordPress.
 
-We will use HyperDB to determine where to send updates (the `master` database) and read requests (both `master` and `slave`).
+We will use HyperDB to determine where to send updates (the `source` database) and read requests (both `source` database  and `replica` database).
 
 ### Install HyperDB Plugin - AppServ1
 
@@ -1043,7 +1043,7 @@ Archive:  hyperdb.1.5.zip
 ```
 **Configure `HyperDB`**
 
-Copy the sample `HyperDB` configuration file `db-config.php` to the WordPress installation folder. HyperDB uses this file to specify several servers. One as the `master` server for write queries and several `slaves` for read queries.
+Copy the sample `HyperDB` configuration file `db-config.php` to the WordPress installation folder. HyperDB uses this file to specify several servers. One as the `source` server for write queries and several `replicas` for read queries.
 ```
 cp ~/hyperdb/db-config.php /var/www/wordpress/db-config.php
 ```
@@ -1056,9 +1056,9 @@ $wpdb->add_database(array(
         'name'     => DB_NAME,
 ));
 ```
-The first `add_database` entry is for the `master` database server (`MySQL1`) and the second entry defines the `slave` database server (`MySQL2`) (the slave entry can be identified by `write' => 0`).
+The first `add_database` entry is for the `source` database server (`MySQL1`) and the second entry defines the `replica` database server (`MySQL2`) (the replica entry can be identified by `write' => 0`).
 
-The values for `DB_HOST`, `DB_USER`, etc. have already been defined in the WordPress configuration file (`wp-config.php`). Also, both `master` and `slave` use the same credentials. The only value we need to update in `db-config.php` is to change the host variable on the second entry to `SLAVE_DB_HOST`.
+The values for `DB_HOST`, `DB_USER`, etc. have already been defined in the WordPress configuration file (`wp-config.php`). Also, both `source` and `replica` use the same credentials. The only value we need to update in `db-config.php` is to change the host variable on the second entry to `SLAVE_DB_HOST`.
 ```
 $wpdb->add_database(array(
         'host'     => SLAVE_DB_HOST,     // If port is other than 3306, use host:port.
@@ -1071,15 +1071,15 @@ $wpdb->add_database(array(
         'timeout'  => 0.2,
 ));
 ```
-Note that because this is defined as an array, you can copy this bit of code for as many database `slaves` as you’d like to setup.
+Note that because this is defined as an array, you can copy this bit of code for as many database `replicas` as you’d like to setup.
 
 Save your changes.
 
 **Configure WordPress**
 
-Edit file `/var/www/wordpress/wp-config.php` and the following entry to define `MySQL2` as the `slave` host.
+Edit file `/var/www/wordpress/wp-config.php` and the following entry to define `MySQL2` as the `replicas` host.
 ```
-/** MySQL slave hostname */
+/** MySQL replica hostname */
 define( 'SLAVE_DB_HOST', '10.10.12.5:3306' );
 ```
 
@@ -1115,7 +1115,7 @@ systemctl stop nginx
 Now that the setup is complete, let's test both MySQL replication and HyperDB.
 
 **Test HyperDB**
-1. Bring down the `master` database - `MySQL1`.
+1. Bring down the `source` database - `MySQL1`.
 ```
 service mysql stop
 ```
@@ -1123,10 +1123,10 @@ service mysql stop
 ```
 http://8d3374f1.lb.appdomain.cloud/
 ```
-3. All of the updates previously made should show indicating data was propagated to the `slave` and it is now handling all queries.
-4. Attempt to add a comment. Since the `slave` is read only and the `master` is down, a posting error will appear: __*ERROR: The comment could not be saved. Please try again later.*__
+3. All of the updates previously made should show indicating data was propagated to the `replica` and it is now handling all queries.
+4. Attempt to add a comment. Since the `replica` is read only and the `source` is down, a posting error will appear: __*ERROR: The comment could not be saved. Please try again later.*__
 5. Attempt to login to the WordPress Administrator console (`/wp-admin`). You should get HTTP error __*502 Bad Gateway*__.
-6. Bring up the `master` database - `MySQL1`.
+6. Bring up the `source` database - `MySQL1`.
 ```
 service mysql start
 ```

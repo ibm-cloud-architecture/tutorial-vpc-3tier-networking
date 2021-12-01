@@ -46,7 +46,7 @@ Select VPC Infrastructure from the hamburger menu in the upper left corner.
 
 ## Create an SSH Key
 
-An SSH key is required when creating a VPC instance. From the VPC Infrastructure menu select "SSH keys" and then "Create +". Enter name, select US-South/Dallas region and add the contents of your RSA public key. Hit the "Add SSH key" button to save.
+An SSH key is required when creating a VPC instance. From the VPC Infrastructure menu select "SSH keys" and then "Create +".  Enter name, select region (e.g. US-South/Dallas) and add the contents of your RSA public key. Hit the "Add SSH key" button to save.
 
 ![SSH Key](images/sshkey.png)
 

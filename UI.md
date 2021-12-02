@@ -66,7 +66,7 @@ For more information on address prefixes, please refer to [Understanding IP addr
 
 Create address prefixes for `10.10.11.0/24` and `10.10.12.0/24`.
 
-On the *VPC Infrastructure* menu, select "VPCs" under "Network.". Select VPC `wp_vpc` to get the details, then select "Address prefixes" and "New prefix."
+On the *VPC Infrastructure* menu, select "VPCs" under "Network.". Select VPC `wp-vpc` to get the details, then select "Address prefixes" and "Create".
 
 ![Address Prefixes](images/addressprefixes.png)
 

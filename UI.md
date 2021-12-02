@@ -76,7 +76,7 @@ Create two VPC Subnets for ipv4-cidr-blocks `10.10.11.0/24` and `10.10.12.0/24`.
 
 The __*application*__ tier will be `subnet1` and the __*data*__ tier will be `subnet2`.
 
-On the *VPC Infrastructure* menu, select "Subnets" and then "New subnet". Create each subnet and attach the VPC's public gateway.
+On the *VPC Infrastructure* menu, select "Subnets" and then click "Create +". Create each subnet and attach the VPC's public gateway.
 
 **Subnet1**
 ![Create subnet1](images/subnet1.png)

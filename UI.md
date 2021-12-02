@@ -52,9 +52,9 @@ An SSH key is required when creating a VPC instance. From the VPC Infrastructure
 
 ## Create a VPC
 
-Create a VPC named `wp_vpc`.
+Create a VPC named `wp-vpc`.
 
-On the *VPC Infrastructure* menu, select "VPCs" under "Network.". Then select "New virtual private cloud". Fill out the form and hit the "Create virtual private cloud" button.
+On the *VPC Infrastructure* menu, select "VPCs" under "Network.". Then select "Create +". Fill out the form and hit the "Create virtual private cloud" button.
 
 Use `subnet0` for subnet and **attach** a Public Gateway. The public gateway will be needed to access the application software from the public repositories.
 

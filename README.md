@@ -1,7 +1,7 @@
 # Use GUI, CLI or API to run a Web App in VPC network  
 ## Purpose
 
-Build a load balanced [3-tier](https://www.ibm.com/cloud/learn/three-tier-architecture) web application that separates the web, application, and data tiers by placing them in separate sub-networks.
+Build a load balanced [3-tier](https://www.ibm.com/cloud/learn/three-tier-architecture) web application that separates the web, application, and data tiers by placing them in separate subnetworks.
 
 Based on [Solution Tutorials - Highly Available & Scalable Web App](https://cloud.ibm.com/docs/tutorials?topic=solution-tutorials-highly-available-and-scalable-web-application#use-virtual-servers-to-build-highly-available-and-scalable-web-app)
 

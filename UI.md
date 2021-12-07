@@ -112,9 +112,9 @@ For purposes of this use case, we will create two security groups for applicatio
 
 In our scenario we will configure the security groups to enable the required ports and protocols.
 
-On the *VPC Infrastructure* menu, select "Security groups" and then "New security group".
+On the *VPC Infrastructure* menu, select "Security groups" and then "Create +".
 
-**Application Security Group - app_sg**
+**Application Security Group - app-sg**
 
 - Add an inbound rule to allow all tcp access on port 22 for SSH access to the VSIs.
 - Add an inbound rule to allow all tcp access on port 80 for HTTP access to the web application.
@@ -122,7 +122,7 @@ On the *VPC Infrastructure* menu, select "Security groups" and then "New securit
 
 ![Application Security Group](images/appsg.png)
 
-**Data Security Group - data_sg**
+**Data Security Group - data-sg**
 
 - Add an inbound rule to allow all tcp access on port 22 for SSH access to the VSIs.
 - Add an inbound rule to allow all tcp access on port 3306 for MySQL (default port for MySQL).

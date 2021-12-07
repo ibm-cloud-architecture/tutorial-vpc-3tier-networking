@@ -207,7 +207,7 @@ Because custom images are not supported (Bring-Your-Own-Image), we will enable a
 
 **Add Public IP to each Data and Application servers**
 
-On the *VPC Infrastructure* menu, select "Virtual server instances" and then select one server to drill down to the details. Under "Network interfaces" select "Reserve" on `eth0` to add a Floating IP.
+On the *VPC Infrastructure* menu, select "Virtual server instances" and then select one server to drill down to the details. Under "Network interfaces" click the pencil icon to edit it on eth0 and select "Reserve a new floating IP" at Floating IP address.
 
 **AppServ1**
 ![AppServ1 FIP](images/appserv1fip.png)

@@ -134,7 +134,7 @@ On the *VPC Infrastructure* menu, select "Security groups" and then "Create +".
 
 Now we have all the required information, let's create two Ubuntu 18.04 VSIs in `subnet2` for the MySQL backend.
 
-On the *VPC Infrastructure* menu, select "Virtual server instances" and then "New instance".
+On the *VPC Infrastructure* menu, select "Virtual server instances" under "Compute" and then "Create +".
 
 Select:
 - Enter instance name (the UI does not allow upper case for resource names).

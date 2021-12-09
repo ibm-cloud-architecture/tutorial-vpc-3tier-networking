@@ -210,12 +210,19 @@ Because custom images are not supported (Bring-Your-Own-Image), we will enable a
 On the *VPC Infrastructure* menu, select "Virtual server instances" and then select one server to drill down to the details. Under "Network interfaces" click the pencil icon to edit it on eth0 and select "Reserve a new floating IP" at Floating IP address.
 
 **AppServ1**
+
 ![AppServ1 FIP](images/appserv1fip.png)
+
 **AppServ2**
+
 ![AppServ2 FIP](images/appserv2fip.png)
+
 **MySQL1**
+
 ![MySQL1 FIP](images/mysql1fip.png)
+
 **MySQL2**
+
 ![MySQL2 FIP](images/mysql2fip.png)
 
 ## Next Step
